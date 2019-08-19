@@ -6,6 +6,7 @@ const routes = require('./routes')
 const app = express()
 
 const bodyParser = require('body-parser')
+const validator = require('express-validator')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -13,7 +14,9 @@ app.set('view engine', 'ejs')
 const middlewares = [
   layout(),
   express.static(path.join(__dirname, 'public')),
-  bodyParser.urlencoded()
+  bodyParser.urlencoded(),
+  validator(),
+
 ]
 app.use(middlewares)
 
