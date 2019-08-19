@@ -32,13 +32,24 @@ router.post('/contact', [
     .normalizeEail()
 ], (req, res) => {
   const errors = validationResult(req)
-  res.render('contact', {
-    data: req.body, //Should this be matchedData(req) ?
-    errors: errors.mapped()
-  })
+  if (!errors.isEmpty()) {
+    return res.render('contact', {
+      data: req.body,
+      errors: errors.mapped()
+    })
+  }
 
-  const data = matchedData(req) // data is the sanitized input
-  console.log('Sanitized:', data)
+  const data = matchedData(req)
+  console.log('Sanitized: ', data)
+  // Homework: send sanitized data in an email or persist in a db
+
+
+  // A “flash message” is the name given to this kind of one-time-only
+  // message we want to persist across a redirect and then disappear.
+  // The express-flash middleware adds req.flash(type, message) which we can use in our route handlers
+  // The express-flash middleware adds messages to req.locals which all views have access to
+  req.flash('success', 'Thanks for the message! I‘ll be in touch :)')
+  res.redirect('/')
 })
 
 module.exports = router

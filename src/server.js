@@ -7,6 +7,9 @@ const app = express()
 
 const bodyParser = require('body-parser')
 const validator = require('express-validator')
+const cookeParser = require('cookie-parser')
+const session = require('express-session')
+const flash = require('express-flash')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -16,7 +19,15 @@ const middlewares = [
   express.static(path.join(__dirname, 'public')),
   bodyParser.urlencoded(),
   validator(),
-
+  cookieParser(),
+  session({
+    secret: 'super-secret-key',
+    key: 'super-secret-cookie'm,
+    resave: false,
+    saveUninitiated: false,
+    cookie: {maxAge: 60000},
+  }),
+  flash()
 ]
 app.use(middlewares)
 
