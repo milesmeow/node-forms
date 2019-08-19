@@ -11,10 +11,13 @@ const cookeParser = require('cookie-parser')
 const session = require('express-session')
 const flash = require('express-flash')
 
+const helmet = require('helmet')
+
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 const middlewares = [
+  helmet(), // adds some security for HTTP headers (we should ideally be using HTTPS!)
   layout(),
   express.static(path.join(__dirname, 'public')),
   bodyParser.urlencoded(),
