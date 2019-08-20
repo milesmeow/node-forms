@@ -12,10 +12,20 @@ const session = require('express-session')
 const flash = require('express-flash')
 
 const helmet = require('helmet')
+const csrf = require('csurf')
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
+
+
+/*
+* We don’t need to modify our POST request handler as all POST requests
+* will now require a valid token by the csurf middleware.
+* If a valid CSRF token isn’t provided, a ForbiddenError error will be thrown,
+* which can be handled by the error handler defined at the end of server.js.
+* https://en.wikipedia.org/wiki/Cross-site_request_forgery
+*/
 const middlewares = [
   helmet(), // adds some security for HTTP headers (we should ideally be using HTTPS!)
   layout(),
@@ -30,7 +40,8 @@ const middlewares = [
     saveUninitiated: false,
     cookie: {maxAge: 60000},
   }),
-  flash()
+  flash(),
+  csrf({cookie: true})
 ]
 app.use(middlewares)
 

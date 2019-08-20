@@ -16,7 +16,8 @@ router.get('/', (req, res) => {
 router.get('/contact', (req, res) => {
   res.render('contact', {
     data: {},
-    errors: {}
+    errors: {},
+    csrfToken: req.csrfToken(), // generate a CSRF token
   })
 })
 
@@ -35,7 +36,8 @@ router.post('/contact', [
   if (!errors.isEmpty()) {
     return res.render('contact', {
       data: req.body,
-      errors: errors.mapped()
+      errors: errors.mapped(),
+      csrfToken: req.csrfToken(), // also generate in the validation error response
     })
   }
 
