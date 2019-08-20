@@ -47,6 +47,18 @@ router.post('/contact', [
     })
   }
 
+  /**
+  * Populating File Inputs
+  * In case of validation errors, we can’t re-populate file inputs like we did for the text inputs.
+  * A common approach to solving this problem involves these steps:
+
+  * uploading the file to a temporary location on the server
+  * showing a thumbnail and filename of the attached file
+  * adding JavaScript to the form to allow people to remove the selected file or upload a new one
+  * moving the file to a permanent location when everything is valid.
+  * Because of the additional complexities of working with multipart and file uploads,
+  * they’re often kept in separate forms.
+  */
   if (req.file) {
     console.log('Uploaded: ', req.file)
     //Homework: Upload file to S3
