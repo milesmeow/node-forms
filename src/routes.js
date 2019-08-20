@@ -36,7 +36,7 @@ router.post('/contact', [
     .isEmail()
     .withMessage('That email doesn‘t look right')
     .trim()
-    .normalizeEail()
+    .normalizeEmail()
 ], (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {

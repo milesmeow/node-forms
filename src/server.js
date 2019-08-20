@@ -7,7 +7,7 @@ const app = express()
 
 const bodyParser = require('body-parser')
 const validator = require('express-validator')
-const cookeParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const flash = require('express-flash')
 
@@ -30,14 +30,14 @@ const middlewares = [
   helmet(), // adds some security for HTTP headers (we should ideally be using HTTPS!)
   layout(),
   express.static(path.join(__dirname, 'public')),
-  bodyParser.urlencoded(),
+  bodyParser.urlencoded({extended: true}),
   validator(),
   cookieParser(),
   session({
     secret: 'super-secret-key',
     key: 'super-secret-cookie',
     resave: false,
-    saveUninitiated: false,
+    saveUninitialized: false,
     cookie: {maxAge: 60000},
   }),
   flash(),
