@@ -12,6 +12,12 @@
   <% } %>
 </div>
 
+<!--
+Unfortunately, we also needed
+to include _csrf as a GET(? POST?) param so that the csurf middleware plays
+ball and doesn’t lose track of our token during multipart submissions.
+-->
+
 <form method="post" action="/contact?_csrf=<%= csrfToken %>" novalidate enctype="multipart/form-data">
   <input type="hidden" name="_csrf" value="<%= csrfToken %>"><!-- Cross-site Request Forgery protecting...send received token with form -->
   <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
