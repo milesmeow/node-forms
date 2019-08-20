@@ -9,6 +9,12 @@ const {
 
 const { matchedData } = require('express-validator/filter')
 
+const multer = require('multer')
+const upload = multer({
+  storage: multer.memoryStorage()
+})
+
+
 router.get('/', (req, res) => {
   res.render('index')
 })
@@ -40,6 +46,12 @@ router.post('/contact', [
       csrfToken: req.csrfToken(), // also generate in the validation error response
     })
   }
+
+  if (req.file) {
+    console.log('Uploaded: ', req.file)
+    //Homework: Upload file to S3
+  }
+
 
   const data = matchedData(req)
   console.log('Sanitized: ', data)
