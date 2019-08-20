@@ -35,7 +35,7 @@ const middlewares = [
   cookieParser(),
   session({
     secret: 'super-secret-key',
-    key: 'super-secret-cookie'm,
+    key: 'super-secret-cookie',
     resave: false,
     saveUninitiated: false,
     cookie: {maxAge: 60000},
